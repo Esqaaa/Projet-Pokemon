@@ -1,0 +1,14 @@
+C:\Users\schma\Documents\Ynov\POO\PokemonBattle\bin\Debug\net10.0\PokemonBattle.exe
+C:\Users\schma\Documents\Ynov\POO\PokemonBattle\bin\Debug\net10.0\PokemonBattle.deps.json
+C:\Users\schma\Documents\Ynov\POO\PokemonBattle\bin\Debug\net10.0\PokemonBattle.runtimeconfig.json
+C:\Users\schma\Documents\Ynov\POO\PokemonBattle\bin\Debug\net10.0\PokemonBattle.dll
+C:\Users\schma\Documents\Ynov\POO\PokemonBattle\bin\Debug\net10.0\PokemonBattle.pdb
+C:\Users\schma\Documents\Ynov\POO\PokemonBattle\obj\Debug\net10.0\PokemonBattle.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\schma\Documents\Ynov\POO\PokemonBattle\obj\Debug\net10.0\PokemonBattle.AssemblyInfoInputs.cache
+C:\Users\schma\Documents\Ynov\POO\PokemonBattle\obj\Debug\net10.0\PokemonBattle.AssemblyInfo.cs
+C:\Users\schma\Documents\Ynov\POO\PokemonBattle\obj\Debug\net10.0\PokemonBattle.csproj.CoreCompileInputs.cache
+C:\Users\schma\Documents\Ynov\POO\PokemonBattle\obj\Debug\net10.0\PokemonBattle.dll
+C:\Users\schma\Documents\Ynov\POO\PokemonBattle\obj\Debug\net10.0\refint\PokemonBattle.dll
+C:\Users\schma\Documents\Ynov\POO\PokemonBattle\obj\Debug\net10.0\PokemonBattle.pdb
+C:\Users\schma\Documents\Ynov\POO\PokemonBattle\obj\Debug\net10.0\PokemonBattle.genruntimeconfig.cache
+C:\Users\schma\Documents\Ynov\POO\PokemonBattle\obj\Debug\net10.0\ref\PokemonBattle.dll
