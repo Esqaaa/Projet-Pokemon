@@ -10,4 +10,4 @@ class Program
         pikachu.Attaquer(evoli);
         evoli.Attaquer(pikachu);
     }
-}
+}   
