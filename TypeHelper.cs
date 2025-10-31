@@ -1,0 +1,1 @@
+// En static c'est en gros le truc des utilitaires : (normal,faiblesse,résistance)

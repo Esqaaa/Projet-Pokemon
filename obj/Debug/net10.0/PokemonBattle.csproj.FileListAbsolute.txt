@@ -12,3 +12,4 @@ C:\Users\schma\Documents\Ynov\POO\PokemonBattle\obj\Debug\net10.0\refint\Pokemon
 C:\Users\schma\Documents\Ynov\POO\PokemonBattle\obj\Debug\net10.0\PokemonBattle.pdb
 C:\Users\schma\Documents\Ynov\POO\PokemonBattle\obj\Debug\net10.0\PokemonBattle.genruntimeconfig.cache
 C:\Users\schma\Documents\Ynov\POO\PokemonBattle\obj\Debug\net10.0\ref\PokemonBattle.dll
+C:\Users\schma\Documents\Ynov\POO\PokemonBattle\obj\Debug\net10.0\PokemonBattle.sourcelink.json
