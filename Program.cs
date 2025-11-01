@@ -15,13 +15,35 @@ class Program
         Console.ResetColor();
         Console.ReadLine(); //Attend que l'utilisateur appuie sur entrée
 
-        
 
-        Pokemon pikachu = new Pokemon("Pikachu", TypePokemon.Electrik, 40, 70, 5);
+        // Initialisation des Pokémons
+        Pokemon pikachu = new Pokemon("Pikachu", TypePokemon.Electrik, 40, 20, 5);
         Pokemon evoli = new Pokemon("Evoli", TypePokemon.Normal, 60, 15, 6);
 
-        int degatsPikachu = 15;
-        int degatsEvoli = 8;
+        Console.ForegroundColor = ConsoleColor.White;
+        TypeWriterEffect("Les combattants entrent dans l'arène...");
+        Console.ResetColor();
+
+        Thread.Sleep(1000); // Petite pause pour le suspense
+
+        // Affichage des stats des Pokémons
+        Console.ForegroundColor = ConsoleColor.Yellow;
+        TypeWriterEffect($"⚡ {pikachu.Nom} - Type: {pikachu.Type}, PV: {pikachu.HealthPoint}, Attaque: {pikachu.Attack}, Défense: {pikachu.Defense}");
+        Console.ResetColor();
+
+        Thread.Sleep(500);
+
+        Console.ForegroundColor = ConsoleColor.Gray;
+        TypeWriterEffect($"🌟 {evoli.Nom} - Type: {evoli.Type}, PV: {evoli.HealthPoint}, Attaque: {evoli.Attack}, Défense: {evoli.Defense}");
+        Console.ResetColor();
+
+        Thread.Sleep(1000);
+
+        Console.ForegroundColor = ConsoleColor.DarkGray;
+        TypeWriterEffect("\nQue le combat commence !");
+        Console.ResetColor();
+
+
         int tour = 1;
 
         while (pikachu.HealthPoint > 0 && evoli.HealthPoint > 0)
@@ -36,16 +58,16 @@ class Program
             Console.ResetColor();
 
             Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine($"{pikachu.Nom} attaque {evoli.Nom} et inflige {degatsPikachu} dégâts !");
-            pikachu.Attaquer(evoli, degatsPikachu);
+            Console.WriteLine($"{pikachu.Nom} attaque !");
+            pikachu.Attaquer(evoli, pikachu.Attack);
             Console.ResetColor();
 
 
             if (evoli.HealthPoint > 0)
             {
                 Console.ForegroundColor = ConsoleColor.Blue;
-                Console.WriteLine($"{evoli.Nom} riposte et inflige {degatsEvoli} dégâts à {pikachu.Nom} !");
-                evoli.Attaquer(pikachu, degatsEvoli);
+                Console.WriteLine($"{evoli.Nom} riposte!");
+                evoli.Attaquer(pikachu, evoli.Attack);
                 Console.ResetColor();
             }
 
@@ -63,11 +85,11 @@ class Program
         Console.ForegroundColor = ConsoleColor.Green;
         if (pikachu.HealthPoint <= 0)
         {
-            TypeWriterEffect($" {evoli.Nom} a gagné le combat !");
+            TypeWriterEffect($" {evoli.Nom} a gagné le combat et il s'est terminé en {tour} tours !");
         }
         else if (evoli.HealthPoint <= 0)
         {
-            TypeWriterEffect($" {pikachu.Nom} a gagné le combat !");
+            TypeWriterEffect($" {pikachu.Nom} a gagné le combat et il s'est terminé en {tour} tours !");
         }
         Console.ResetColor();
     }
