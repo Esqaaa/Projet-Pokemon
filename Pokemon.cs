@@ -7,14 +7,16 @@ namespace PokemonBattle
         public int HealthPoint;
         public int Attack;
         public int Defense;
+        public int Speed;
 
-        public Pokemon(string nom, TypePokemon type, int healthPoint, int attack, int defense)
+        public Pokemon(string nom, TypePokemon type, int healthPoint, int attack, int defense, int speed)
         {
             Nom = nom;
             Type = type;
             HealthPoint = healthPoint;
             Attack = attack;
             Defense = defense;
+            Speed = speed;
         }
 
         public void Attaquer(Pokemon cible, int degatsBase)
@@ -43,7 +45,7 @@ namespace PokemonBattle
                 2.0 => $"L'attaque de {Nom} est très efficace contre {cible.Nom} ! Dégâts doublés 💥",
                 0.5 => $"L'attaque de {Nom} n'est pas très efficace contre {cible.Nom}... Dégâts réduits 😐",
                 0.0 => $"L'attaque de {Nom} n’a aucun effet sur {cible.Nom} 😶",
-                _ => $"L'attaque de {Nom} est normalement efficace contre {cible.Nom}."
+                _ => $"L'attaque de {Nom} est contre contre {cible.Nom}."
             };
 
             // --- 💡 Affichage avec couleur selon efficacité ---

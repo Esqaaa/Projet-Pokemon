@@ -15,10 +15,83 @@ class Program
         Console.ResetColor();
         Console.ReadLine(); //Attend que l'utilisateur appuie sur entrée
 
+    
+        // Importation du pokedex 
+        string filePath = "pokedex.csv";
+        List<Pokemon> pokemons = PokemonLoader.LoadFromCSV(filePath);
 
-        // Initialisation des Pokémons
-        Pokemon pikachu = new Pokemon("Pikachu", TypePokemon.Electrik, 40, 20, 5);
-        Pokemon evoli = new Pokemon("Evoli", TypePokemon.Normal, 60, 15, 6);
+        if (pokemons.Count < 2)
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("❌ Le fichier doit contenir au moins deux Pokémon pour lancer un combat.");
+            Console.ResetColor();
+            return;
+        }
+
+        // Accès au pokedex ou poursuite du code 
+        Console.WriteLine("📜 Accéder au pokédex (y/n) : ");
+        string? choice = Console.ReadLine();
+        if (choice != null && choice.ToLower() == "y")
+        {
+            Console.WriteLine("\nListe des Pokémon disponibles :");
+            for (int i = 0; i < pokemons.Count; i++)
+            {
+                Console.WriteLine($"{i} - {pokemons[i].Nom}");
+            }
+        }
+        else
+        {
+            // Poursuite du code 
+        }
+
+        // Demande à l'utilisateur quel pokemon veut-il utiliser 
+        Console.WriteLine("\nQuel Pokémon voulez-vous dans votre équipe ? (N° ou nom) : ");
+        string? input = Console.ReadLine();
+        Console.Clear();
+
+        if (string.IsNullOrWhiteSpace(input))
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("❌ Entrée vide.");
+            Console.ResetColor();
+            return;
+        }
+
+        Pokemon? pokemon1 = null;
+
+        if (int.TryParse(input, out int index))
+        {
+            if (index >= 0 && index < pokemons.Count)
+            {
+                pokemon1 = pokemons[index];
+            }
+            else
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("❌ Numéro invalide.");
+                Console.ResetColor();
+                return;
+            }
+        }
+        else
+        {
+            pokemon1 = pokemons.Find(p => p.Nom.Equals(input, StringComparison.OrdinalIgnoreCase));
+            if (pokemon1 is null)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine($"❌ Aucun Pokémon nommé '{input}' trouvé.");
+                Console.ResetColor();
+                return;
+            }
+        }
+
+        Pokemon pokemon1Selected = pokemon1;
+
+        // Pokemon ennemi défini aléatoirement 
+        Random rnd = new Random();
+        Pokemon pokemon2 = pokemons[rnd.Next(pokemons.Count)];
+
+
 
         Console.ForegroundColor = ConsoleColor.White;
         TypeWriterEffect("Les combattants entrent dans l'arène...");
@@ -28,13 +101,13 @@ class Program
 
         // Affichage des stats des Pokémons
         Console.ForegroundColor = ConsoleColor.Yellow;
-        TypeWriterEffect($"⚡ {pikachu.Nom} - Type: {pikachu.Type}, PV: {pikachu.HealthPoint}, Attaque: {pikachu.Attack}, Défense: {pikachu.Defense}");
+        TypeWriterEffect($"⚡ {pokemon1.Nom} - Type: {pokemon1.Type}, PV: {pokemon1.HealthPoint}, Attaque: {pokemon1.Attack}, Défense: {pokemon1.Defense}");
         Console.ResetColor();
 
         Thread.Sleep(500);
 
         Console.ForegroundColor = ConsoleColor.Gray;
-        TypeWriterEffect($"🌟 {evoli.Nom} - Type: {evoli.Type}, PV: {evoli.HealthPoint}, Attaque: {evoli.Attack}, Défense: {evoli.Defense}");
+        TypeWriterEffect($"🌟 {pokemon2.Nom} - Type: {pokemon2.Type}, PV: {pokemon2.HealthPoint}, Attaque: {pokemon2.Attack}, Défense: {pokemon2.Defense}");
         Console.ResetColor();
 
         Thread.Sleep(1000);
@@ -46,28 +119,28 @@ class Program
 
         int tour = 1;
 
-        while (pikachu.HealthPoint > 0 && evoli.HealthPoint > 0)
+        while (pokemon1.HealthPoint > 0 && pokemon2.HealthPoint > 0)
         {
             Console.ForegroundColor = ConsoleColor.DarkGreen;
             Console.WriteLine($"\n=== Tour {tour} de combat ===");
             Console.ResetColor();
 
             Console.ForegroundColor = ConsoleColor.Magenta;
-            Console.WriteLine($"{pikachu.Nom}  PV: {pikachu.HealthPoint}");
-            Console.WriteLine($"{evoli.Nom}  PV: {evoli.HealthPoint}");
+            Console.WriteLine($"{pokemon1.Nom}  PV: {pokemon1.HealthPoint}");
+            Console.WriteLine($"{pokemon2.Nom}  PV: {pokemon2.HealthPoint}");
             Console.ResetColor();
 
             Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine($"{pikachu.Nom} attaque !");
-            pikachu.Attaquer(evoli, pikachu.Attack);
+            Console.WriteLine($"{pokemon1.Nom} attaque !");
+            pokemon1.Attaquer(pokemon2, pokemon1.Attack);
             Console.ResetColor();
 
 
-            if (evoli.HealthPoint > 0)
+            if (pokemon2.HealthPoint > 0)
             {
                 Console.ForegroundColor = ConsoleColor.Blue;
-                Console.WriteLine($"{evoli.Nom} riposte!");
-                evoli.Attaquer(pikachu, evoli.Attack);
+                Console.WriteLine($"{pokemon2.Nom} riposte!");
+                pokemon2.Attaquer(pokemon1, pokemon2.Attack);
                 Console.ResetColor();
             }
 
@@ -83,13 +156,13 @@ class Program
         Console.ResetColor();
 
         Console.ForegroundColor = ConsoleColor.Green;
-        if (pikachu.HealthPoint <= 0)
+        if (pokemon1.HealthPoint <= 0)
         {
-            TypeWriterEffect($" {evoli.Nom} a gagné le combat et il s'est terminé en {tour} tours !");
+            TypeWriterEffect($" {pokemon2.Nom} a gagné le combat et il s'est terminé en {tour} tours !");
         }
-        else if (evoli.HealthPoint <= 0)
+        else if (pokemon2.HealthPoint <= 0)
         {
-            TypeWriterEffect($" {pikachu.Nom} a gagné le combat et il s'est terminé en {tour} tours !");
+            TypeWriterEffect($" {pokemon1.Nom} a gagné le combat et il s'est terminé en {tour} tours !");
         }
         Console.ResetColor();
     }

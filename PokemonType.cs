@@ -17,8 +17,8 @@ namespace PokemonBattle
         Roche,
         Spectre,
         Dragon,
-        Ténèbres,
+        Tenebres,
         Acier,
-        Fée,
+        Fee,
     }
 }
