@@ -13,7 +13,7 @@ class Program
         Console.ForegroundColor = ConsoleColor.DarkGray;
         TypeWriterEffect("\nPress Enter to start the fight...");
         Console.ResetColor();
-        Console.ReadLine(); //Attend que l'utilisateur appuie sur entrée
+        Console.ReadLine(); 
 
     
         // Importation du pokedex 
@@ -36,7 +36,7 @@ class Program
             Console.WriteLine("\nListe des Pokémon disponibles :");
             for (int i = 0; i < pokemons.Count; i++)
             {
-                Console.WriteLine($"{i} - {pokemons[i].Nom}");
+                Console.WriteLine($"{i} - {pokemons[i].Name}");
             }
         }
         else
@@ -75,11 +75,11 @@ class Program
         }
         else
         {
-            pokemon1 = pokemons.Find(p => p.Nom.Equals(input, StringComparison.OrdinalIgnoreCase));
+            pokemon1 = pokemons.Find(p => p.Name.Equals(input, StringComparison.OrdinalIgnoreCase));
             if (pokemon1 is null)
             {
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine($"❌ Aucun Pokémon nommé '{input}' trouvé.");
+                Console.WriteLine($"❌ Aucun Pokémon Namemé '{input}' trouvé.");
                 Console.ResetColor();
                 return;
             }
@@ -101,13 +101,13 @@ class Program
 
         // Affichage des stats des Pokémons
         Console.ForegroundColor = ConsoleColor.Yellow;
-        TypeWriterEffect($"⚡ {pokemon1.Nom} - Type: {pokemon1.Type}, PV: {pokemon1.HealthPoint}, Attaque: {pokemon1.Attack}, Défense: {pokemon1.Defense}");
+        TypeWriterEffect($"⚡ {pokemon1.Name} - Type: {pokemon1.Type}, PV: {pokemon1.HealthPoint}, Attaque: {pokemon1.Attack}, Défense: {pokemon1.Defense}");
         Console.ResetColor();
 
         Thread.Sleep(500);
 
         Console.ForegroundColor = ConsoleColor.Gray;
-        TypeWriterEffect($"🌟 {pokemon2.Nom} - Type: {pokemon2.Type}, PV: {pokemon2.HealthPoint}, Attaque: {pokemon2.Attack}, Défense: {pokemon2.Defense}");
+        TypeWriterEffect($"🌟 {pokemon2.Name} - Type: {pokemon2.Type}, PV: {pokemon2.HealthPoint}, Attaque: {pokemon2.Attack}, Défense: {pokemon2.Defense}");
         Console.ResetColor();
 
         Thread.Sleep(1000);
@@ -126,12 +126,12 @@ class Program
             Console.ResetColor();
 
             Console.ForegroundColor = ConsoleColor.Magenta;
-            Console.WriteLine($"{pokemon1.Nom}  PV: {pokemon1.HealthPoint}");
-            Console.WriteLine($"{pokemon2.Nom}  PV: {pokemon2.HealthPoint}");
+            Console.WriteLine($"{pokemon1.Name}  PV: {pokemon1.HealthPoint}");
+            Console.WriteLine($"{pokemon2.Name}  PV: {pokemon2.HealthPoint}");
             Console.ResetColor();
 
             Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine($"{pokemon1.Nom} attaque !");
+            Console.WriteLine($"{pokemon1.Name} attaque !");
             pokemon1.Attaquer(pokemon2, pokemon1.Attack);
             Console.ResetColor();
 
@@ -139,7 +139,7 @@ class Program
             if (pokemon2.HealthPoint > 0)
             {
                 Console.ForegroundColor = ConsoleColor.Blue;
-                Console.WriteLine($"{pokemon2.Nom} riposte!");
+                Console.WriteLine($"{pokemon2.Name} riposte!");
                 pokemon2.Attaquer(pokemon1, pokemon2.Attack);
                 Console.ResetColor();
             }
@@ -158,11 +158,11 @@ class Program
         Console.ForegroundColor = ConsoleColor.Green;
         if (pokemon1.HealthPoint <= 0)
         {
-            TypeWriterEffect($" {pokemon2.Nom} a gagné le combat et il s'est terminé en {tour} tours !");
+            TypeWriterEffect($" {pokemon2.Name} a gagné le combat et il s'est terminé en {tour} tours !");
         }
         else if (pokemon2.HealthPoint <= 0)
         {
-            TypeWriterEffect($" {pokemon1.Nom} a gagné le combat et il s'est terminé en {tour} tours !");
+            TypeWriterEffect($" {pokemon1.Name} a gagné le combat et il s'est terminé en {tour} tours !");
         }
         Console.ResetColor();
     }
