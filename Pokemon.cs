@@ -138,5 +138,18 @@ namespace PokemonBattle
             Console.ResetColor();   
         }
 
+        public void Catch()
+        {
+            // Je veux qu'il ait 25% de chance d'être capturé
+            Random rnd = new Random();
+            if (rnd.NextDouble() <= 0.25)
+            {
+                HealthPoint = 0;
+                Console.WriteLine($"{Name} a été capturé et ne peut plus combattre !");
+            }
+            else {
+                Console.WriteLine($"{Name} a résisté à la capture !");
+            }
+        }
     }
 }   

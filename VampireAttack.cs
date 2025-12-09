@@ -4,7 +4,8 @@ public class VampireAttack : DamageAttack
 {
     public double VampireCoefficient { get; }
 
-    public VampireAttack(string name, int damage, double vampireCoefficient, TypePokemon type) : base(name, damage, type)
+    public VampireAttack(string name, int damage, double vampireCoefficient, TypePokemon type) 
+        : base(name, damage, type)
     {
         VampireCoefficient = vampireCoefficient;
     }
@@ -13,19 +14,31 @@ public class VampireAttack : DamageAttack
     {
         if (user.IsKO())
         {
-            Console.WriteLine($"{user.Name} has fainted and cannot use {Name}.");
+            Console.WriteLine($"{user.Name} a été mis K.O. et ne peut pas utiliser {Name}.");
             return;
         }
 
-        base.Use(user, target);
-        int heal = (int)(Damage * VampireCoefficient);
-        user.Heal(heal);
-        Console.WriteLine($"{user.Name} healed for {heal} HP due to vampire effect!");
+        Console.WriteLine($"{user.Name} utilise {Name}!");
+        
+        var effectiveness = TypeHelper.GetEffectiveness(Type, target.Type);
+        
+        var degatsFinaux = (int)(Damage * effectiveness);
+        
+        target.RecevoirDegats(Name, degatsFinaux, effectiveness);
+        
+        int soin = (int)(degatsFinaux * VampireCoefficient);
+        user.Heal(soin);
+        
+        Console.ForegroundColor = ConsoleColor.DarkMagenta;
+        Console.WriteLine($"💉 {user.Name} a absorbé {soin} PV grâce au vampirisme !");
+        Console.ResetColor();
     }
 
     public override void GetDescription()
     {
-        base.GetDescription();
-        Console.WriteLine("  (Heals part of the damage dealt)");
+        Console.WriteLine($"- {Name} (Dégâts: {Damage}, Type: {Type})");
+        Console.ForegroundColor = ConsoleColor.DarkMagenta;
+        Console.WriteLine($"  💉 Vampirisme : Restaure {VampireCoefficient * 100}% des dégâts infligés");
+        Console.ResetColor();
     }
 }
