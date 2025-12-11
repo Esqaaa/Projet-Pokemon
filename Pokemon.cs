@@ -3,7 +3,7 @@ namespace PokemonBattle
     public class Pokemon
     {
         public string Name;
-        public TypePokemon Type;
+        public TypePokemon Type { get ; }
         public int HealthPoint;
         public int MaxHealthPoint;
         public int Attack;
@@ -11,10 +11,11 @@ namespace PokemonBattle
         public int Speed;
         public List<Attack> Attacks;
 
-        public Pokemon(string name, TypePokemon type, int healthPoint, int attack, int defense, int speed)
+        // Constructeur
+        public Pokemon(string name, TypePokemon type1, int healthPoint, int attack, int defense, int speed)
         {
             Name = name;
-            Type = type;
+            Type = type1;
             HealthPoint = healthPoint;
             MaxHealthPoint = healthPoint;
             Attack = attack;
@@ -23,11 +24,13 @@ namespace PokemonBattle
             Attacks = new List<Attack>();
         }
 
+        // Méthodes Attaques
         public void AddAttack(Attack attack)
         {
             Attacks.Add(attack);
         }
 
+        // Methode pour utiliser une attaque
         public void UseAttack(int indexAttaque, Pokemon cible)
         {
             if (HealthPoint <= 0)
@@ -49,6 +52,7 @@ namespace PokemonBattle
             Attacks[indexAttaque].Use(this, cible);
         }
 
+        // Afficher les attaques disponibles
         public void DisplayAttacks()
         {
             Console.WriteLine($"Attaques de {Name} :");
@@ -59,11 +63,13 @@ namespace PokemonBattle
             }
         }
 
+        // Vérifie si le Pokémon est KO
         public bool IsKO()
         {
             return HealthPoint <= 0;
         }
 
+        // Soigne le Pokémon
         public void Heal(int amount)
         {
             HealthPoint += amount;
@@ -73,6 +79,7 @@ namespace PokemonBattle
             Console.ResetColor();
         }
 
+        // Méthode d'attaque basique
         public void Attaquer(Pokemon cible, int degatsBase)
         {
             if (HealthPoint <= 0)
@@ -86,14 +93,14 @@ namespace PokemonBattle
             if (degatsBase < 0)
                 degatsBase = 0;
 
-            // --- 🔥 Calcul du multiplicateur selon le type ---
+            // Calcul du multiplicateur selon le type 
             double multiplicateur = TypeHelper.GetEffectiveness(this.Type, cible.Type);
 
-            // --- ⚔️ Calcul des dégâts finaux avec défense ---
+            // Calcul des dégâts finaux avec défense 
             int degatsFinaux = (int)((degatsBase * multiplicateur) - cible.Defense);
             if (degatsFinaux < 0) degatsFinaux = 0;
 
-            // --- 💬 Message sur l’efficacité ---
+            // Message sur l’efficacité 
             string message = multiplicateur switch
             {
                 2.0 => $"L'attaque de {Name} est très efficace contre {cible.Name} ! Dégâts doublés 💥",
@@ -102,7 +109,7 @@ namespace PokemonBattle
                 _ => $"L'attaque de {Name} touche {cible.Name}."
             };
 
-            // --- 💡 Affichage avec couleur selon efficacité ---
+            // Affichage avec couleur selon efficacité 
             if (multiplicateur == 2.0) Console.ForegroundColor = ConsoleColor.Green;
             else if (multiplicateur == 0.5) Console.ForegroundColor = ConsoleColor.Yellow;
             else if (multiplicateur == 0.0) Console.ForegroundColor = ConsoleColor.Gray;
@@ -111,15 +118,15 @@ namespace PokemonBattle
             Console.WriteLine(message);
             Console.ResetColor();
 
-            // --- ⚔️ Application des dégâts ---
+            // Application des dégâts 
             cible.RecevoirDegats("Attaque basique", degatsFinaux, multiplicateur);
 
-            // --- 📝 Affichage des dégâts infligés ---
+            // Affichage des dégâts infligés 
             Console.ForegroundColor = ConsoleColor.Cyan;
             Console.WriteLine($"{Name} inflige {degatsFinaux} points de dégâts à {cible.Name} !");
             Console.ResetColor();
 
-            // --- 💬 Vérification de l’état du Pokémon cible ---
+            // Vérification de l’état du Pokémon cible 
             if (cible.HealthPoint > 0)
                 Console.WriteLine($"{cible.Name} peut continuer à combattre ! PV restants : {cible.HealthPoint}");
             else
@@ -140,7 +147,7 @@ namespace PokemonBattle
 
         public void Catch()
         {
-            // Je veux qu'il ait 25% de chance d'être capturé
+            // Fait en sorte qu'il y ait 25% de chance de capturer le Pokémon
             Random rnd = new Random();
             if (rnd.NextDouble() <= 0.25)
             {

@@ -1,5 +1,6 @@
 using PokemonBattle;
 
+// Potion pour soigner un pokemon
 public class Potion : IItem
 {
     public string Name => "Potion";
@@ -12,6 +13,7 @@ public class Potion : IItem
         this.healAmount = healAmount;
     }
 
+    // Utilisation de la potion sur un pokemon
     public void Use(Pokemon pokemon)
     {
         pokemon.Heal(healAmount);

@@ -1,6 +1,5 @@
 ﻿using System;
 using PokemonBattle;
-using System.Threading;
 
 class Program
 {
@@ -17,7 +16,7 @@ class Program
         Console.Clear();
     
         // Importation du pokedex 
-        string filePath = "pokedex.csv";
+        string filePath = "Pokedex.csv";
         List<Pokemon> pokemons = PokemonLoader.LoadFromCSV(filePath);
 
         if (pokemons.Count < 2)
@@ -38,7 +37,7 @@ class Program
                 Console.WriteLine($"{i} - {pokemons[i].Name}");
         }
 
-        // Demande à l'utilisateur quel pokemon veut-il utiliser 
+        // Demande à l'utilisateur quel pokemon il veut utiliser 
         Console.WriteLine("\nQuel Pokémon voulez-vous dans votre équipe ? (N° ou nom) : ");
         string? input = Console.ReadLine();
         Console.Clear();
@@ -91,13 +90,13 @@ class Program
 
         // Affichage des stats
         Console.ForegroundColor = ConsoleColor.Yellow;
-        TypeWriterEffect($"⚡ {pokemon1.Name} - Type: {pokemon1.Type}, PV: {pokemon1.HealthPoint}");
+        TypeWriterEffect($" {pokemon1.Name} - Type: {pokemon1.Type}, PV: {pokemon1.HealthPoint}");
         Console.ResetColor();
 
         Thread.Sleep(500);
 
         Console.ForegroundColor = ConsoleColor.Gray;
-        TypeWriterEffect($"🌟 {pokemon2.Name} - Type: {pokemon2.Type}, PV: {pokemon2.HealthPoint}");
+        TypeWriterEffect($" {pokemon2.Name} - Type: {pokemon2.Type}, PV: {pokemon2.HealthPoint}");
         Console.ResetColor();
 
         Thread.Sleep(1000);
@@ -109,27 +108,27 @@ class Program
 
         int money = 1000;
 
-        // --- Boutique ---
+        // Boutique accessible avant le combat
         List<IItem> shopItems = new List<IItem>()
         {
             new Pokeball(50),
             new Potion(25)
         };
 
-        // --- Inventaire du joueur ---
+        // Inventaire du joueur
         List<IItem> items = new List<IItem>();
 
         while (true)
         {
             Console.ForegroundColor = ConsoleColor.Cyan;
-            Console.WriteLine("\n=== 🛒 Boutique Pokémon ===");
+            TypeWriterEffect("\n=== 🛒 Boutique Pokémon ===");
             Console.ResetColor();
 
-            Console.WriteLine($"Argent disponible : {money} ₽\n");
+            TypeWriterEffect($"Argent disponible : {money} ₽\n");
             for (int i = 0; i < shopItems.Count; i++)
-                Console.WriteLine($"{i + 1}. {shopItems[i].Name} - {shopItems[i].Cost} ₽\n");
+                TypeWriterEffect($"{i + 1}. {shopItems[i].Name} - {shopItems[i].Cost} ₽\n");
 
-            Console.WriteLine("0. Quitter la boutique\n");
+            TypeWriterEffect("0. Quitter la boutique\n");
             Console.Write("Votre choix : ");
 
             string? buyChoice = Console.ReadLine();
@@ -137,8 +136,7 @@ class Program
             if (buyChoice == "0")
                 break;
 
-            if (int.TryParse(buyChoice, out int shopIndex) &&
-                shopIndex >= 1 && shopIndex <= shopItems.Count)
+            if (int.TryParse(buyChoice, out int shopIndex) && shopIndex >= 1 && shopIndex <= shopItems.Count)
             {
                 IItem selected = shopItems[shopIndex - 1];
 
@@ -166,6 +164,7 @@ class Program
 
         int tour = 1;
 
+        // Boucle de combat principale
         while (pokemon1.HealthPoint > 0 && pokemon2.HealthPoint > 0)
         {
             Console.ForegroundColor = ConsoleColor.DarkGreen;
@@ -177,14 +176,14 @@ class Program
             Console.WriteLine($"{pokemon2.Name}  PV: {pokemon2.HealthPoint}");
             Console.ResetColor();
 
-            // === MENU DE CHOIX ===
+            // Menu de choix
             Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine("\nQue voulez-vous faire ?");
+            TypeWriterEffect("\nQue voulez-vous faire ?");
             Console.WriteLine("1️⃣  Attaquer");
             Console.WriteLine("2️⃣  Utiliser un objet");
             Console.WriteLine("3️⃣  Afficher l'inventaire");
             Console.WriteLine("4️⃣  Voir les PV de tous les Pokémons\n");
-            Console.Write("Votre choix : ");
+            TypeWriterEffect("Votre choix : ");
             Console.ResetColor();
 
             string? action = Console.ReadLine();
@@ -199,13 +198,13 @@ class Program
             }
             else if (action == "2")
             {
-                // === INVENTAIRE ===
-                Console.WriteLine("\nObjets disponibles :");
+                // Inventaire des objets
+                TypeWriterEffect("\nObjets disponibles :");
                 for (int i = 0; i < items.Count; i++)
                     Console.WriteLine($"{i + 1}. {items[i].Name}");
                 Console.WriteLine("0. Retour au menu");
 
-                Console.Write("\nChoisissez un objet : ");
+                TypeWriterEffect("\nChoisissez un objet : ");
                 string? itemChoice = Console.ReadLine();
 
                     if (itemChoice == "0")
@@ -232,7 +231,7 @@ class Program
                         if (pokemon2.HealthPoint <= 0)
                         {
                             Console.ForegroundColor = ConsoleColor.Green;
-                            Console.WriteLine("\n🎉 Le combat se termine !");
+                            TypeWriterEffect("\n🎉 Le combat se termine !");
                             Console.ResetColor();
                             break;
                         }
@@ -246,16 +245,16 @@ class Program
             else if (action == "3")
             {
                 Console.ForegroundColor = ConsoleColor.Cyan;
-                Console.WriteLine("\n=== 📦 Inventaire ===");
+                TypeWriterEffect("\n=== 📦 Inventaire ===");
                 Console.ResetColor();
 
                 if (items.Count == 0)
-                    Console.WriteLine("Votre inventaire est vide !");
+                    TypeWriterEffect("Votre inventaire est vide !");
                 else
                     for (int i = 0; i < items.Count; i++)
-                        Console.WriteLine($"{i + 1}. {items[i].Name} (Coût : {items[i].Cost})");
+                        TypeWriterEffect($"{i + 1}. {items[i].Name} (Coût : {items[i].Cost})");
 
-                Console.WriteLine("\nAppuyez sur Entrée pour revenir au menu...");
+                TypeWriterEffect("\nAppuyez sur Entrée pour revenir au menu...");
                 Console.ReadLine();
 
                 Console.Clear();
@@ -265,13 +264,12 @@ class Program
             {
                 // Affichage des PV de tous les Pokémons
                 Console.ForegroundColor = ConsoleColor.Cyan;
-                Console.WriteLine("\n=== PV des Pokémons ===");
+                TypeWriterEffect("\n=== PV des Pokémons ===");
                 Console.ResetColor();
 
                 Console.WriteLine($"{pokemon1.Name} : {pokemon1.HealthPoint}/{pokemon1.MaxHealthPoint} PV");
                 Console.WriteLine($"{pokemon2.Name} : {pokemon2.HealthPoint}/{pokemon2.MaxHealthPoint} PV");
-
-                Console.WriteLine("\nAppuyez sur Entrée pour revenir au menu...");
+                TypeWriterEffect("\nAppuyez sur Entrée pour revenir au menu...");
                 Console.ReadLine();
 
                 continue; // Retour au début du tour sans attaquer
@@ -282,7 +280,7 @@ class Program
                 pokemon1.Attaquer(pokemon2, pokemon1.Attack);
             }
 
-            // === Riposte ennemie ===
+            // Ennemi qui attaque à son tour s'il est toujours en vie
             if (pokemon2.HealthPoint > 0)
             {
                 Console.ForegroundColor = ConsoleColor.Blue;
@@ -292,15 +290,15 @@ class Program
             }
 
             Console.ForegroundColor = ConsoleColor.DarkGray;
-            Console.WriteLine("\nAppuyez sur Entrée pour continuer...");
+            TypeWriterEffect("\nAppuyez sur Entrée pour continuer...");
             Console.ResetColor();
             Console.ReadLine();
 
             tour++;
         }
-
+        
         Console.ForegroundColor = ConsoleColor.Red;
-        Console.WriteLine("=== Fin du combat ===");
+        TypeWriterEffect("=== Fin du combat ===");
         Console.ResetColor();
 
         if (pokemon1.HealthPoint <= 0)
@@ -316,6 +314,7 @@ class Program
         Console.ResetColor();
     }
 
+    // Effet machine à écrire
     static void TypeWriterEffect(string text, int delay = 40)
     {
         foreach (char c in text)

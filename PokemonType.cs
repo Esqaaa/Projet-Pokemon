@@ -1,5 +1,6 @@
 namespace PokemonBattle
 {
+    // Définit tout les types de Pokemon
     public enum TypePokemon
     {
         Normal,

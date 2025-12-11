@@ -2,6 +2,7 @@ using PokemonBattle;
 
 public class Pokeball : IItem
 {
+    // Propriétés de l'objet
     public string Name => "Pokeball";
     public int Cost { get; } = 200;
 
@@ -13,6 +14,7 @@ public class Pokeball : IItem
         this.captureThreshold = captureThreshold;
     }
 
+    // Utilisation de la Pokeball sur un pokemon cible
     public void Use(Pokemon target)
     {
         Console.WriteLine($"Joueur utilise Pokeball sur {target.Name}.");

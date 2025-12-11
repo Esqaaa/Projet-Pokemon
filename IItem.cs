@@ -1,5 +1,6 @@
 using PokemonBattle;
 
+// Interface pour les objets utilisables
 public interface IItem
 {
     string Name { get; }
