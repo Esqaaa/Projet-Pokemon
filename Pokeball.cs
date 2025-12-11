@@ -1,15 +1,15 @@
 using PokemonBattle;
 
-public class Pokeball : IItem
+public class Pokeboule : IItem
 {
     // Propriétés de l'objet
-    public string Name => "Pokeball";
-    public int Cost { get; } = 200;
+    public string Name => "Pokeboule";
+    public int Cost { get; } = 220;
 
     private Random rng = new Random();
     private int captureThreshold; // Plus la valeur est basse, plus la capture du pokemon est facile
 
-    public Pokeball(int captureThreshold = 50)
+    public Pokeboule(int captureThreshold = 50)
     {
         this.captureThreshold = captureThreshold;
     }
@@ -17,7 +17,7 @@ public class Pokeball : IItem
     // Utilisation de la Pokeball sur un pokemon cible
     public void Use(Pokemon target)
     {
-        Console.WriteLine($"Joueur utilise Pokeball sur {target.Name}.");
+        Console.WriteLine($"Joueur utilise Pokeboule sur {target.Name}.");
         
         int roll = rng.Next(0, 101);
         if (roll > captureThreshold)

@@ -1,14 +1,14 @@
 using PokemonBattle;
 
 // Potion pour soigner un pokemon
-public class Potion : IItem
+public class Ventoline : IItem
 {
-    public string Name => "Potion";
-    public int Cost { get; } = 200;
+    public string Name => "Ventoline";
+    public int Cost { get; } = 500;
 
     private int healAmount;
 
-    public Potion(int healAmount = 20)
+    public Ventoline(int healAmount = 20)
     {
         this.healAmount = healAmount;
     }
@@ -17,6 +17,6 @@ public class Potion : IItem
     public void Use(Pokemon pokemon)
     {
         pokemon.Heal(healAmount);
-        Console.WriteLine($"Joueur utilise une potion et regénère {healAmount} PV à {pokemon.Name}.");
+        Console.WriteLine($"Joueur utilise une ventoline et regénère {healAmount} PV à {pokemon.Name}.");
     }
 }
