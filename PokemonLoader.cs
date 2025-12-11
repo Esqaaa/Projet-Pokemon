@@ -51,6 +51,7 @@ public static class PokemonLoader
                     int speed = int.Parse(values[5]);
 
                     var pokemon = new Pokemon(name, type1, pv, attack, defense, speed);
+                    AddDefaultAttacksByType(pokemon); // 🔧 AJOUT DE L'APPEL
                     pokemons.Add(pokemon);
                 }
                 else if (values.Length == 7)
@@ -70,6 +71,7 @@ public static class PokemonLoader
                     int speed = int.Parse(values[6]);
 
                     var pokemon = new Pokemon(name, type1, pv, attack, defense, speed);
+                    AddDefaultAttacksByType(pokemon); // 🔧 AJOUT DE L'APPEL
                     pokemons.Add(pokemon);
                 }
                 else
@@ -82,125 +84,123 @@ public static class PokemonLoader
         return pokemons;
     }
 
-    /// <summary>
-    /// Assigne les attaques par défaut à un Pokémon en fonction de son type.
-    /// </summary>
+    // Ajoute des attaques par défaut en fonction du type du Pokémon
     private static void AddDefaultAttacksByType(Pokemon p)
     {
-        switch (p.Type1)
+        switch (p.Type)
         {
             case TypePokemon.Feu:
-                p.Attacks.Add(new DamageAttack("Flammèche", p.Type1, 20));
-                p.Attacks.Add(new DamageAttack("Lance-Flammes", p.Type1, 35));
-                p.Attacks.Add(new HealingAttack("Cendres chaudes", p.Type1, 15));
+                p.AddAttack(new DamageAttack("Flammèche", 20, TypePokemon.Feu));
+                p.AddAttack(new DamageAttack("Lance-Flammes", 35, TypePokemon.Feu));
+                p.AddAttack(new HealingAttack("Cendres chaudes", 15, TypePokemon.Feu));
                 break;
 
             case TypePokemon.Eau:
-                p.Attacks.Add(new DamageAttack("Pistolet à O", p.Type1, 20));
-                p.Attacks.Add(new DamageAttack("Cascade", p.Type1, 35));
-                p.Attacks.Add(new HealingAttack("Pluie régénérante", p.Type1, 15));
+                p.AddAttack(new DamageAttack("Pistolet à O", 20, TypePokemon.Eau));
+                p.AddAttack(new DamageAttack("Cascade", 35, TypePokemon.Eau));
+                p.AddAttack(new HealingAttack("Pluie régénérante", 15, TypePokemon.Eau));
                 break;
 
             case TypePokemon.Plante:
-                p.Attacks.Add(new DamageAttack("Fouet Lianes", p.Type1, 20));
-                p.Attacks.Add(new DamageAttack("Tempête Verte", p.Type1, 35));
-                p.Attacks.Add(new HealingAttack("Synthèse", p.Type1, 15));
+                p.AddAttack(new DamageAttack("Fouet Lianes", 20, TypePokemon.Plante));
+                p.AddAttack(new DamageAttack("Tempête Verte", 35, TypePokemon.Plante));
+                p.AddAttack(new HealingAttack("Synthèse", 15, TypePokemon.Plante));
                 break;
 
             case TypePokemon.Electrik:
-                p.Attacks.Add(new DamageAttack("Éclair", p.Type1, 20));
-                p.Attacks.Add(new DamageAttack("Fatal-Foudre", p.Type1, 35));
-                p.Attacks.Add(new HealingAttack("Recharge électrique", p.Type1, 15));
+                p.AddAttack(new DamageAttack("Éclair", 20, TypePokemon.Electrik));
+                p.AddAttack(new DamageAttack("Fatal-Foudre", 35, TypePokemon.Electrik));
+                p.AddAttack(new HealingAttack("Recharge électrique", 15, TypePokemon.Electrik));
                 break;
 
             case TypePokemon.Acier:
-                p.Attacks.Add(new DamageAttack("Griffe Acier", p.Type1, 20));
-                p.Attacks.Add(new DamageAttack("Tir Métallique", p.Type1, 35));
-                p.Attacks.Add(new HealingAttack("Renfort Acier", p.Type1, 15));
+                p.AddAttack(new DamageAttack("Griffe Acier", 20, TypePokemon.Acier));
+                p.AddAttack(new DamageAttack("Tir Métallique", 35, TypePokemon.Acier));
+                p.AddAttack(new HealingAttack("Renfort Acier", 15, TypePokemon.Acier));
                 break;
 
             case TypePokemon.Combat:
-                p.Attacks.Add(new DamageAttack("Poing Éclair", p.Type1, 20));
-                p.Attacks.Add(new DamageAttack("Coup de Boule", p.Type1, 35));
-                p.Attacks.Add(new HealingAttack("Focus Vital", p.Type1, 15));
+                p.AddAttack(new DamageAttack("Poing Éclair", 20, TypePokemon.Combat));
+                p.AddAttack(new DamageAttack("Coup de Boule", 35, TypePokemon.Combat));
+                p.AddAttack(new HealingAttack("Focus Vital", 15, TypePokemon.Combat));
                 break;
 
             case TypePokemon.Dragon:
-                p.Attacks.Add(new DamageAttack("Draco-Rage", p.Type1, 20));
-                p.Attacks.Add(new DamageAttack("Dracochoc", p.Type1, 35));
-                p.Attacks.Add(new HealingAttack("Souffle Draconique", p.Type1, 15));
+                p.AddAttack(new DamageAttack("Draco-Rage", 20, TypePokemon.Dragon));
+                p.AddAttack(new DamageAttack("Dracochoc", 35, TypePokemon.Dragon));
+                p.AddAttack(new HealingAttack("Souffle Draconique", 15, TypePokemon.Dragon));
                 break;
 
             case TypePokemon.Fee:
-                p.Attacks.Add(new DamageAttack("Éclat Magique", p.Type1, 20));
-                p.Attacks.Add(new DamageAttack("Voile Féérique", p.Type1, 35));
-                p.Attacks.Add(new HealingAttack("Soin Enchanté", p.Type1, 15));
+                p.AddAttack(new DamageAttack("Éclat Magique", 20, TypePokemon.Fee));
+                p.AddAttack(new DamageAttack("Voile Féérique", 35, TypePokemon.Fee));
+                p.AddAttack(new HealingAttack("Soin Enchanté", 15, TypePokemon.Fee));
                 break;
 
             case TypePokemon.Glace:
-                p.Attacks.Add(new DamageAttack("Poudreuse", p.Type1, 20));
-                p.Attacks.Add(new DamageAttack("Blizzard", p.Type1, 35));
-                p.Attacks.Add(new HealingAttack("Frissons Revigorants", p.Type1, 15));
+                p.AddAttack(new DamageAttack("Poudreuse", 20, TypePokemon.Glace));
+                p.AddAttack(new DamageAttack("Blizzard", 35, TypePokemon.Glace));
+                p.AddAttack(new HealingAttack("Frissons Revigorants", 15, TypePokemon.Glace));
                 break;
 
             case TypePokemon.Insecte:
-                p.Attacks.Add(new DamageAttack("Dard-Venin", p.Type1, 20));
-                p.Attacks.Add(new DamageAttack("Fouet Insecte", p.Type1, 35));
-                p.Attacks.Add(new HealingAttack("Régénération Naturelle", p.Type1, 15));
+                p.AddAttack(new DamageAttack("Dard-Venin", 20, TypePokemon.Insecte));
+                p.AddAttack(new DamageAttack("Fouet Insecte", 35, TypePokemon.Insecte));
+                p.AddAttack(new HealingAttack("Régénération Naturelle", 15, TypePokemon.Insecte));
                 break;
 
             case TypePokemon.Normal:
-                p.Attacks.Add(new DamageAttack("Charge", p.Type1, 20));
-                p.Attacks.Add(new DamageAttack("Coup Puissant", p.Type1, 35));
-                p.Attacks.Add(new HealingAttack("Repos", p.Type1, 15));
+                p.AddAttack(new DamageAttack("Charge", 20, TypePokemon.Normal));
+                p.AddAttack(new DamageAttack("Coup Puissant", 35, TypePokemon.Normal));
+                p.AddAttack(new HealingAttack("Repos", 15, TypePokemon.Normal));
                 break;
 
             case TypePokemon.Poison:
-                p.Attacks.Add(new DamageAttack("Piqûre Toxique", p.Type1, 20));
-                p.Attacks.Add(new DamageAttack("Nuage Vénéneux", p.Type1, 35));
-                p.Attacks.Add(new HealingAttack("Soin Acide", p.Type1, 15));
+                p.AddAttack(new DamageAttack("Piqûre Toxique", 20, TypePokemon.Poison));
+                p.AddAttack(new DamageAttack("Nuage Vénéneux", 35, TypePokemon.Poison));
+                p.AddAttack(new HealingAttack("Soin Acide", 15, TypePokemon.Poison));
                 break;
 
             case TypePokemon.Psy:
-                p.Attacks.Add(new DamageAttack("Choc Mental", p.Type1, 20));
-                p.Attacks.Add(new DamageAttack("Psyko", p.Type1, 35));
-                p.Attacks.Add(new HealingAttack("Calme Mental", p.Type1, 15));
+                p.AddAttack(new DamageAttack("Choc Mental", 20, TypePokemon.Psy));
+                p.AddAttack(new DamageAttack("Psyko", 35, TypePokemon.Psy));
+                p.AddAttack(new HealingAttack("Calme Mental", 15, TypePokemon.Psy));
                 break;
 
             case TypePokemon.Roche:
-                p.Attacks.Add(new DamageAttack("Éboulement", p.Type1, 20));
-                p.Attacks.Add(new DamageAttack("Pierre-Volante", p.Type1, 35));
-                p.Attacks.Add(new HealingAttack("Soin Sablonneux", p.Type1, 15));
+                p.AddAttack(new DamageAttack("Éboulement", 20, TypePokemon.Roche));
+                p.AddAttack(new DamageAttack("Pierre-Volante", 35, TypePokemon.Roche));
+                p.AddAttack(new HealingAttack("Soin Sablonneux", 15, TypePokemon.Roche));
                 break;
 
             case TypePokemon.Sol:
-                p.Attacks.Add(new DamageAttack("Pelle", p.Type1, 20));
-                p.Attacks.Add(new DamageAttack("Séisme", p.Type1, 35));
-                p.Attacks.Add(new HealingAttack("Régénération Terrestre", p.Type1, 15));
+                p.AddAttack(new DamageAttack("Pelle", 20, TypePokemon.Sol));
+                p.AddAttack(new DamageAttack("Séisme", 35, TypePokemon.Sol));
+                p.AddAttack(new HealingAttack("Régénération Terrestre", 15, TypePokemon.Sol));
                 break;
 
             case TypePokemon.Spectre:
-                p.Attacks.Add(new DamageAttack("Griffe Spectrale", p.Type1, 20));
-                p.Attacks.Add(new DamageAttack("Ombre Nocturne", p.Type1, 35));
-                p.Attacks.Add(new HealingAttack("Soin Fantomatique", p.Type1, 15));
+                p.AddAttack(new DamageAttack("Griffe Spectrale", 20, TypePokemon.Spectre));
+                p.AddAttack(new DamageAttack("Ombre Nocturne", 35, TypePokemon.Spectre));
+                p.AddAttack(new HealingAttack("Soin Fantomatique", 15, TypePokemon.Spectre));
                 break;
 
             case TypePokemon.Tenebres:
-                p.Attacks.Add(new DamageAttack("Morsure", p.Type1, 20));
-                p.Attacks.Add(new DamageAttack("Griffe Ombre", p.Type1, 35));
-                p.Attacks.Add(new HealingAttack("Soin Obscur", p.Type1, 15));
+                p.AddAttack(new DamageAttack("Morsure", 20, TypePokemon.Tenebres));
+                p.AddAttack(new DamageAttack("Griffe Ombre", 35, TypePokemon.Tenebres));
+                p.AddAttack(new HealingAttack("Soin Obscur", 15, TypePokemon.Tenebres));
                 break;
 
             case TypePokemon.Vol:
-                p.Attacks.Add(new DamageAttack("Aile d’Acier", p.Type1, 20));
-                p.Attacks.Add(new DamageAttack("Rapace", p.Type1, 35));
-                p.Attacks.Add(new HealingAttack("Rafale Revigorante", p.Type1, 15));
+                p.AddAttack(new DamageAttack("Aile d'Acier", 20, TypePokemon.Vol));
+                p.AddAttack(new DamageAttack("Rapace", 35, TypePokemon.Vol));
+                p.AddAttack(new HealingAttack("Rafale Revigorante", 15, TypePokemon.Vol));
                 break;
 
             default:
-                p.Attacks.Add(new DamageAttack("Coup Normal", p.Type1, 20));
-                p.Attacks.Add(new DamageAttack("Coup Puissant", p.Type1, 35));
-                p.Attacks.Add(new HealingAttack("Repos", p.Type1, 15));
+                p.AddAttack(new DamageAttack("Coup Normal", 20, TypePokemon.Normal));
+                p.AddAttack(new DamageAttack("Coup Puissant", 35, TypePokemon.Normal));
+                p.AddAttack(new HealingAttack("Repos", 15, TypePokemon.Normal));
                 break;
         }
     }

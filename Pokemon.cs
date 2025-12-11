@@ -12,10 +12,10 @@ namespace PokemonBattle
         public List<Attack> Attacks;
 
         // Constructeur
-        public Pokemon(string name, TypePokemon type1, int healthPoint, int attack, int defense, int speed)
+        public Pokemon(string name, TypePokemon type, int healthPoint, int attack, int defense, int speed)
         {
             Name = name;
-            Type = type1;
+            Type = type;
             HealthPoint = healthPoint;
             MaxHealthPoint = healthPoint;
             Attack = attack;
