@@ -13,6 +13,13 @@ public abstract class Attack
         Type = type;
     }
 
+    // Constructeur de copie
+    public Attack(Attack other)
+    {   
+        Name = other.Name;
+        Type = other.Type;
+    }
+
     public abstract void Use(Pokemon attacker, Pokemon defender);
     public abstract void GetDescription(); 
 }

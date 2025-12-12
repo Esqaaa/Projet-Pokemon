@@ -3,6 +3,34 @@ using PokemonBattle;
 
 class Program
 {
+
+    // Couleurs en fonction du type de pokemon
+    static ConsoleColor GetTypeColor(TypePokemon type)
+    {
+        return type switch
+        {
+            TypePokemon.Feu => ConsoleColor.Red,
+            TypePokemon.Eau => ConsoleColor.Blue,
+            TypePokemon.Plante => ConsoleColor.Green,
+            TypePokemon.Electrik => ConsoleColor.Yellow,
+            TypePokemon.Glace => ConsoleColor.Cyan,
+            TypePokemon.Acier => ConsoleColor.Gray,
+            TypePokemon.Combat => ConsoleColor.DarkRed,
+            TypePokemon.Dragon => ConsoleColor.DarkMagenta,
+            TypePokemon.Fee => ConsoleColor.Magenta,
+            TypePokemon.Insecte => ConsoleColor.DarkGreen,
+            TypePokemon.Normal => ConsoleColor.White,
+            TypePokemon.Poison => ConsoleColor.DarkMagenta,
+            TypePokemon.Psy => ConsoleColor.DarkCyan,
+            TypePokemon.Roche => ConsoleColor.DarkYellow,
+            TypePokemon.Sol => ConsoleColor.DarkYellow,
+            TypePokemon.Spectre => ConsoleColor.DarkMagenta,
+            TypePokemon.Tenebres => ConsoleColor.DarkGray,
+            TypePokemon.Vol => ConsoleColor.Cyan,
+            _ => ConsoleColor.White // Si le pokemon n'a pas de type défini
+        };
+    }
+
     static void Main()
     {
         Console.ForegroundColor = ConsoleColor.Cyan;
@@ -29,13 +57,12 @@ class Program
         }
 
         // Accès au pokedex ou poursuite du code 
-        Console.WriteLine("📜 Accéder au pokédex (y/n) : ");
+        Console.WriteLine("\n📜 Accéder au pokédex (y/n) : ");
         string? choice = Console.ReadLine();
         if (choice != null && choice.ToLower() == "y")
         {
             Console.WriteLine("\nListe des Pokémon disponibles :");
-            for (int i = 0; i < pokemons.Count; i++)
-                Console.WriteLine($"{i} - {pokemons[i].Name}");
+            DisplayPokedexColumn(pokemons);
         }
 
         // Demande à l'utilisateur quel pokemon il veut utiliser 
@@ -90,13 +117,21 @@ class Program
         Thread.Sleep(1000);
 
         // Affichage des stats
-        Console.ForegroundColor = ConsoleColor.Yellow;
-        TypeWriterEffect($" {pokemon1.Name} - Type: {pokemon1.Type}, PV: {pokemon1.HealthPoint}");
+        Console.ForegroundColor = GetTypeColor(pokemon1.Type);
+        TypeWriterEffect($"{pokemon1.Name.PadRight(15)}  {HealthBar(pokemon1.HealthPoint, pokemon1.MaxHealthPoint)}  {pokemon1.HealthPoint}/{pokemon1.MaxHealthPoint}");
+        Console.WriteLine($"Votre Pokémon : {pokemon1.Name}");
+        Console.WriteLine(GetMiniSprite(pokemon1.Type));
+        Console.WriteLine();
+
         Console.ResetColor();
 
 
-        Console.ForegroundColor = ConsoleColor.Gray;
-        TypeWriterEffect($" {pokemon2.Name} - Type: {pokemon2.Type}, PV: {pokemon2.HealthPoint}");
+        Console.ForegroundColor = GetTypeColor(pokemon2.Type);
+        TypeWriterEffect($"{pokemon2.Name.PadRight(15)}  {HealthBar(pokemon2.HealthPoint, pokemon2.MaxHealthPoint)}  {pokemon2.HealthPoint}/{pokemon2.MaxHealthPoint}");
+        Console.WriteLine($"Adversaire : {pokemon2.Name}");
+        Console.WriteLine(GetMiniSprite(pokemon2.Type));
+        Console.WriteLine();
+
         Console.ResetColor();
 
         Thread.Sleep(500);
@@ -125,9 +160,12 @@ class Program
             Console.WriteLine($"\n=== Tour {tour} de combat ===");
             Console.ResetColor();
 
-            Console.ForegroundColor = ConsoleColor.Magenta;
-            Console.WriteLine($"{pokemon1.Name}  PV: {pokemon1.HealthPoint}");
-            Console.WriteLine($"{pokemon2.Name}  PV: {pokemon2.HealthPoint}");
+            Console.ForegroundColor = GetTypeColor(pokemon1.Type);
+            Console.WriteLine($"{pokemon1.Name.PadRight(15)}  {HealthBar(pokemon1.HealthPoint, pokemon1.MaxHealthPoint)}  {pokemon1.HealthPoint}/{pokemon1.MaxHealthPoint}");
+            
+            Console.ForegroundColor = GetTypeColor(pokemon2.Type);
+            Console.WriteLine($"{pokemon2.Name.PadRight(15)}  {HealthBar(pokemon2.HealthPoint, pokemon2.MaxHealthPoint)}  {pokemon2.HealthPoint}/{pokemon2.MaxHealthPoint}");
+            
             Console.ResetColor();
 
             // Menu de choix
@@ -241,8 +279,11 @@ class Program
                 TypeWriterEffect("\nPV des Pokémons");
                 Console.ResetColor();
 
-                Console.WriteLine($"{pokemon1.Name} : {pokemon1.HealthPoint}/{pokemon1.MaxHealthPoint} PV");
-                Console.WriteLine($"{pokemon2.Name} : {pokemon2.HealthPoint}/{pokemon2.MaxHealthPoint} PV");
+                Console.ForegroundColor = GetTypeColor(pokemon1.Type);
+                TypeWriterEffect($"{pokemon1.Name.PadRight(15)}  {HealthBar(pokemon1.HealthPoint, pokemon1.MaxHealthPoint)}  {pokemon1.HealthPoint}/{pokemon1.MaxHealthPoint}");
+
+                Console.ForegroundColor = GetTypeColor(pokemon2.Type);
+                TypeWriterEffect($"{pokemon2.Name.PadRight(15)}  {HealthBar(pokemon2.HealthPoint, pokemon2.MaxHealthPoint)}  {pokemon2.HealthPoint}/{pokemon2.MaxHealthPoint}");
 
                 TypeWriterEffect("\nAppuyez sur Entrée pour revenir au menu...");
                 Console.ReadLine();
@@ -362,5 +403,140 @@ class Program
             Thread.Sleep(delay);
         }
         Console.WriteLine();
+    }
+
+    // Affiche la barre de vie 
+    static string HealthBar(int current, int max) 
+    { 
+        int size = 20; // Longueur de la barre de PV 
+        int filled = (current * size) / max; 
+        
+        return "|" + new string('█', filled) + new string('░', size - filled) + "|"; 
+    }
+
+    // Affiche un Pokémon avec un nom aligné
+    static void DisplayPokemon(string name, int currentHP, int maxHP)
+    {
+        int nameWidth = 15; // Largeur fixe pour aligner les noms
+        string paddedName = name.PadRight(nameWidth);
+
+        Console.WriteLine($"{paddedName} {HealthBar(currentHP, maxHP)} {currentHP}/{maxHP}");
+    }
+
+    static string GetMiniSprite(TypePokemon type)
+    {
+        return type switch
+        {
+            TypePokemon.Feu =>
+    @"    (\_/)
+    ( •_•)🔥
+    / >🔥",
+
+            TypePokemon.Eau =>
+    @"    (\_/)
+    ( •_•)💧
+    / >💦",
+
+            TypePokemon.Plante =>
+    @"    (\_/)
+    ( •_•)🌿
+    / >🌱",
+
+            TypePokemon.Electrik =>
+    @"    (\_/)
+    ( •_•)⚡
+    / >⚡",
+
+            TypePokemon.Glace =>
+    @" (\_/)
+    ( •_•)❄️
+    / >☃️",
+
+            TypePokemon.Acier =>
+    @"   (\_/)
+    ( •_•)⚙️
+    / >🔧",
+
+            TypePokemon.Combat =>
+    @"   (\_/)
+    ( •_•)👊
+    / >🥊",
+
+            TypePokemon.Dragon =>
+    @"     /^ ^\
+    ( •.• )
+    / >🐉",
+
+            TypePokemon.Spectre =>
+    @"    .-.
+    ( •_•)
+    /)   )",
+
+            TypePokemon.Tenebres =>
+    @"    (\_/)
+    ( •_•)🌑
+    / >🌘",
+
+            TypePokemon.Poison =>
+    @"    (\_/)
+    ( x_x)☠️
+    /  >☣️",
+
+            TypePokemon.Psy =>
+    @"    (\_/)
+    ( •_•)🔮
+    / >✨",
+
+            TypePokemon.Insecte =>
+    @"     .--.
+    ( •.•)
+    /  🐛",
+
+            TypePokemon.Vol =>
+    @"    /\_/\
+    ( •_• )🕊️
+    \   \",
+
+            TypePokemon.Roche =>
+    @"     _____
+    ( •_• )
+    /  🪨 \",
+
+            TypePokemon.Sol =>
+    @"    (\_/)
+    ( •_•)⛰️
+    /  >🏔️",
+
+            TypePokemon.Fee =>
+    @" (\_/)
+    ( ^_^)✨
+    / >✨",
+
+            _ =>
+    @"   (\_/)
+    ( •_•)
+    /  >"
+        };
+    }
+
+    // Colonne pour le pokedex
+    static void DisplayPokedexColumn(List<Pokemon> pokemons)
+    {
+        int columns = 3;
+        int rows = (int)Math.Ceiling((double)pokemons.Count / columns);
+
+        for (int r = 0; r < rows; r++)
+        {
+            for (int c = 0; c < columns; c++)
+            {
+                int index = r + c * rows;
+                if (index < pokemons.Count)
+                {
+                    Console.Write($"{index} - {pokemons[index].Name}".PadRight(30));
+                    Console.ResetColor();
+                }
+            }
+            Console.WriteLine();
+        }
     }
 }
