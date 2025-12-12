@@ -24,6 +24,22 @@ namespace PokemonBattle
             Attacks = new List<Attack>();
         }
 
+        // Constructeur de copie
+        public Pokemon(Pokemon other)
+        {
+            Name = other.Name;
+            Type = other.Type;
+            HealthPoint = MaxHealthPoint = other.MaxHealthPoint;
+            Attack = other.Attack;
+            Defense = other.Defense;
+            Speed = other.Speed;
+            Attacks = new List<Attack>();
+            foreach (var atk in other.Attacks)
+            {
+                Attacks.Add(atk); // si tes attaques sont clonables, sinon il faut dupliquer
+            }
+        }
+
         // Méthodes Attaques
         public void AddAttack(Attack attack)
         {
