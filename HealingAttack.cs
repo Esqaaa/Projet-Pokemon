@@ -14,16 +14,16 @@ public class HealingAttack : Attack
     {
         if (user.IsKO())
         {
-            Console.WriteLine($"{user.Name} has fainted and cannot use {Name}.");
+            Console.WriteLine($"{user.Name} est K.O. et ne peut pas utiliser {Name}.");
             return;
         }
 
         user.Heal(HealingAmount);
-        Console.WriteLine($"{user.Name} used {Name} and healed for {HealingAmount} HP!");
+        Console.WriteLine($"{user.Name} utilise {Name} et récupère {HealingAmount} PV !");
     }
 
     public override void GetDescription()
     {
-        Console.WriteLine($"- {Name} (Healing: {HealingAmount}, Type: {Type})");
+        Console.WriteLine($"- {Name} (Soin : {HealingAmount}, Type : {Type})");
     }
 }

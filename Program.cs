@@ -6,11 +6,12 @@ class Program
     static void Main()
     {
         Console.ForegroundColor = ConsoleColor.Cyan;
-        TypeWriterEffect("⚔️ Welcome to the Pokemon Battle Console !");
+        TypeWriterEffect("⚔️ Bienvenue dans la Console de Combat Pokémon !");
         Console.ResetColor();
 
         Console.ForegroundColor = ConsoleColor.DarkGray;
-        TypeWriterEffect("\nPress Enter to start the fight...");
+        TypeWriterEffect("\nAppuyez sur Entrée pour commencer le combat ...");
+        Thread.Sleep(1000);
         Console.ResetColor();
         Console.ReadLine(); 
         Console.Clear();
